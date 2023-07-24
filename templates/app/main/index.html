@@ -112,9 +112,14 @@
                             <div class="single-item">
                                 <div class="single-product position-relative">
                                     <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="{{ product.image.url }}" alt="" class="product-image-1 w-100">
+{#                                        <a class="d-block" href="{% url 'product-details' product_id %}">#}
+{#                                            <img src="{{ product.image.url }}" alt="" class="product-image-1 w-100">#}
+{#                                        </a>#}
+                                        <a class="d-block" href="{% url 'product-details' product.id %}">
+
+                                            <img src="{{ product.image.url }}" alt="{{ product.title }}" class="product-image-1 w-100">
                                         </a>
+
                                     </div>
                                     <div class="product-content">
                                         <div class="product-rating">
@@ -125,7 +130,7 @@
                                             <i class="fa fa-star-o"></i>
                                         </div>
                                         <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">{{ product.title }}</a></h4>
+                                            <h4 class="title-2"> <a href="{% url 'product-details' product.id %}">{{ product.title }}</a></h4>
                                         </div>
                                         <div class="price-box">
                                             <span class="regular-price ">${{ product.price }}</span>
@@ -241,7 +246,7 @@
                             <div class="single-item">
                                 <div class="single-product position-relative mb-30">
                                     <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
+                                        <a class="d-block" href="{{ laptop.id }}">
                                             <img src="{{ laptop.image.url }}" alt="" class="product-image-1 w-100">
                                         </a>
                                     </div>
@@ -254,7 +259,7 @@
                                             <i class="fa fa-star-o"></i>
                                         </div>
                                         <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">{{ laptop.title }}</a></h4>
+                                            <h4 class="title-2"> <a href="{{ laptop.id }}/">{{ laptop.title }}</a></h4>
                                         </div>
                                         <div class="price-box">
                                             <span class="regular-price ">${{ laptop.price }}</span>

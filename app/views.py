@@ -24,9 +24,11 @@ def shop_view(request):
                            "products_right":products_right})
 
 
-def product_details_view(request):
+def product_details_view(request, product_id):
+    product = Product.objects.filter(id=product_id).first()
     return render(request=request,
-                  template_name='app/shop_main/product_details.html')
+                  template_name='app/shop_main/product_details.html',
+                  context={'product':product})
 
 
 def add_product_view(request):

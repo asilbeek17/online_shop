@@ -6,10 +6,8 @@ from app.views import index_view, shop_view, product_details_view, product_error
 urlpatterns = [
     path('', index_view, name='index'),
     path('shop-main-page/', shop_view, name='shop_main'),
-    path('product-details-page/', product_details_view, name='product-details'),
+    path('<int:product_id>/', product_details_view, name='product-details'),
     path('add-product/', add_product_view, name='add-product'),
-
-
     path('product-error404-page/', product_error404, name='product-error404'),
     path('product-compare-page/', product_compare_page, name='product-compare-page'),
     path('product-cart-page/', product_cart_page, name='product-cart-page'),
