@@ -1,23 +1,27 @@
 from django.shortcuts import render, redirect
 
 from app.form import ProductModelForm
-from app.models import Product, Category
+from app.models import Product, Category, Blog
 
 
 def index_view(request):
     laptops = Product.objects.filter(category__title='Laptop')
     products = Product.objects.order_by('-price').all()
+    blogs = Blog.objects.all()[:3]
     return render(request=request,
                   template_name='app/main/index.html',
                   context={"products":products,
-                           "laptops":laptops})
+                           "laptops":laptops,
+                           'blogs':blogs})
 
 
 def shop_view(request):
-    products = Product.objects.all()
+    products = Product.objects.all()[:4]
+    products_right = Product.objects.order_by('-price').all()[:3]
     return render(request=request,
                   template_name='app/shop_main/shop.html',
-                  context={"products":products})
+                  context={"products":products,
+                           "products_right":products_right})
 
 
 def product_details_view(request):
@@ -102,3 +106,6 @@ def about_page(request):
 def contact_page(request):
     return render(request=request,
                   template_name='app/contact.html')
+
+
+

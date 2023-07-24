@@ -10,7 +10,7 @@ urlpatterns = [
     path('add-product/', add_product_view, name='add-product'),
 
 
-    path('product-error404-page', product_error404, name='product-error404'),
+    path('product-error404-page/', product_error404, name='product-error404'),
     path('product-compare-page/', product_compare_page, name='product-compare-page'),
     path('product-cart-page/', product_cart_page, name='product-cart-page'),
     path('product-checkout-page/', product_checkout_page, name='product-checkout-page'),

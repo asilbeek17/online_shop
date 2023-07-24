@@ -20,7 +20,7 @@
                         <div class="breadcrumb-content position-relative section-content">
                             <h3 class="title-3">Shop Sidebar</h3>
                             <ul>
-                                <li><a href="../main/index.html">Home</a></li>
+                                <li><a href="{% url 'index' %}">Home</a></li>
                                 <li>Shop</li>
                             </ul>
                         </div>
@@ -75,7 +75,7 @@
                                             <i class="fa fa-star-o"></i>
                                         </div>
                                         <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">{{ product.title }}</a></h4>
+                                            <h4 class="title-2"> {{ product.title }}</h4>
                                         </div>
                                         <div class="price-box">
                                             <span class="regular-price ">${{ product.price }}</span>
@@ -83,13 +83,13 @@
                                         </div>
                                     </div>
                                     <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
+                                        <a href="{% url 'product-cart-page' %}" title="Add To cart">
                                             <i class="ion-bag"></i>
                                         </a>
-                                        <a href="compare.html" title="Compare">
+                                        <a href="{% url 'product-compare-page' %}" title="Compare">
                                             <i class="ion-ios-loop-strong"></i>
                                         </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
+                                        <a href="{% url 'product-wishlist-page' %}" title="Add To Wishlist">
                                             <i class="ion-ios-heart-outline"></i>
                                         </a>
                                         <a href="#exampleModalCenter" data-bs-toggle="modal" title="Quick View">
@@ -263,16 +263,17 @@
                                 <div class="widget-list widget-mb-4">
                                     <h3 class="widget-title">Recent Products</h3>
                                     <div class="sidebar-body">
+                                        {% for product in products_right %}
                                         <div class="sidebar-product align-items-center">
                                             <a href="product-details.html" class="image">
-                                                <img src="{% static 'app/assets/images/product/small-product/1.jpg ' %}" alt="product">
+                                                <img src="{{ product.image.url }}" alt="product">
                                             </a>
                                             <div class="product-content">
                                                 <div class="product-title">
-                                                    <h4 class="title-2"> <a href="product-details.html">Product dummy name</a></h4>
+                                                    <h4 class="title-2"> <a href="product-details.html">{{ product.title }}</a></h4>
                                                 </div>
                                                 <div class="price-box">
-                                                    <span class="regular-price ">$80.00</span>
+                                                    <span class="regular-price ">${{ product.price }}</span>
                                                     <span class="old-price"><del>$90.00</del></span>
                                                 </div>
                                                 <div class="product-rating">
@@ -284,48 +285,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="sidebar-product align-items-center">
-                                            <a href="product-details.html" class="image">
-                                                <img src="{% static 'app/assets/images/product/small-product/2.jpg ' %}" alt="product">
-                                            </a>
-                                            <div class="product-content">
-                                                <div class="product-title">
-                                                    <h4 class="title-2"> <a href="product-details.html">Product dummy title</a></h4>
-                                                </div>
-                                                <div class="price-box">
-                                                    <span class="regular-price ">$50.00</span>
-                                                    <span class="old-price"><del>$60.00</del></span>
-                                                </div>
-                                                <div class="product-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-half-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="sidebar-product align-items-center">
-                                            <a href="product-details.html" class="image">
-                                                <img src="{% static 'app/assets/images/product/small-product/3.jpg ' %}" alt="product">
-                                            </a>
-                                            <div class="product-content">
-                                                <div class="product-title">
-                                                    <h4 class="title-2"> <a href="product-details.html">Product title here</a></h4>
-                                                </div>
-                                                <div class="price-box">
-                                                    <span class="regular-price ">$40.00</span>
-                                                    <span class="old-price"><del>$50.00</del></span>
-                                                </div>
-                                                <div class="product-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-half-o"></i>
-                                                    <i class="fa fa-star-half-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -347,7 +307,7 @@
                                 <p class="desc-content">Call our support 24/7 at 01234-567-890</p>
                             </div>
                             <div class="support-button d-flex align-items-center">
-                                <a class="obrien-button primary-btn" href="contact-us.html">Contact now</a>
+                                <a class="obrien-button primary-btn" href="{% url 'contact' %}">Contact now</a>
                             </div>
                         </div>
                     </div>
@@ -414,7 +374,7 @@
                                                 </div>
                                             </div>
                                             <div class="add-to_cart">
-                                                <a class="btn obrien-button primary-btn" href="cart.html">Add to cart</a>
+                                                <a class="btn obrien-button primary-btn" href="{% url 'product-cart-page' %}">Add to cart</a>
                                             </div>
                                         </div>
                                     </div>

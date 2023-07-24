@@ -404,12 +404,12 @@
                                             </div>
                                         </div>
                                         <div class="sidebar-product align-items-center">
-                                            <a href="product-details.html" class="image">
+                                            <a href="{% url 'product-details' %}" class="image">
                                                 <img src="{% static 'app/assets/images/product/small-product/3.jpg' %}" alt="product">
                                             </a>
                                             <div class="product-content">
                                                 <div class="product-title">
-                                                    <h4 class="title-2"> <a href="product-details.html">Product title here</a></h4>
+                                                    <h4 class="title-2"> <a href="{% url 'product-details' %}">Product title here</a></h4>
                                                 </div>
                                                 <div class="price-box">
                                                     <span class="regular-price ">$40.00</span>
@@ -445,7 +445,7 @@
                                 <p class="desc-content">Call our support 24/7 at 01234-567-890</p>
                             </div>
                             <div class="support-button d-flex align-items-center">
-                                <a class="obrien-button primary-btn" href="contact-us.html">Contact now</a>
+                                <a class="obrien-button primary-btn" href="{% url 'contact' %}">Contact now</a>
                             </div>
                         </div>
                     </div>

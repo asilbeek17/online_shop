@@ -38,7 +38,7 @@
                         <h4 class="slider-small-title">Cold processed organic fruit</h4>
                         <h2 class="slider-large-title">Fresh Avocado</h2>
                         <div class="slider-btn">
-                            <a class="obrien-button black-btn" href="../shop_main/shop.html">Shop Now</a>
+                            <a class="obrien-button black-btn" href="{% url 'shop_main' %}">Shop Now</a>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                         <h4 class="slider-small-title">Healthy life with</h4>
                         <h2 class="slider-large-title">Natural Organic</h2>
                         <div class="slider-btn">
-                            <a class="obrien-button black-btn" href="../shop_main/shop.html">Shop Now</a>
+                            <a class="obrien-button black-btn" href="{% url  'shop_main' %}">Shop Now</a>
                         </div>
                     </div>
                 </div>
@@ -107,6 +107,7 @@
                         "slidesToShow": 1
                         }}
                         ]'>
+
                         {% for product in products %}
                             <div class="single-item">
                                 <div class="single-product position-relative">
@@ -127,18 +128,18 @@
                                             <h4 class="title-2"> <a href="product-details.html">{{ product.title }}</a></h4>
                                         </div>
                                         <div class="price-box">
-                                            <span class="regular-price ">$80.00</span>
+                                            <span class="regular-price ">${{ product.price }}</span>
                                             <span class="old-price"><del>$90.00</del></span>
                                         </div>
                                     </div>
                                     <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
+                                        <a href="{% url 'product-cart-page' %}" title="Add To cart">
                                             <i class="ion-bag"></i>
                                         </a>
-                                        <a href="compare.html" title="Compare">
+                                        <a href="{% url 'product-compare-page' %}" title="Compare">
                                             <i class="ion-ios-loop-strong"></i>
                                         </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
+                                        <a href="{% url 'product-wishlist-page' %}" title="Add To Wishlist">
                                             <i class="ion-ios-heart-outline"></i>
                                         </a>
                                         <a href="#exampleModalCenter" data-bs-toggle="modal" title="Quick View">
@@ -167,7 +168,7 @@
                         <div class="banner-flash-content d-flex flex-column align-items-center justify-content-center h-100">
                             <h2 class="deal-head text-uppercase">Flash Deals</h2>
                             <h3 class="deal-title text-uppercase">Hurry up and Get 25% Discount</h3>
-                            <a href="../shop_main/shop.html" class="obrien-button primary-btn">Shop Now</a>
+                            <a href="{% url 'shop_main' %}" class="obrien-button primary-btn">Shop Now</a>
                             <div class="countdown-wrapper d-flex justify-content-center" data-countdown="2022/12/24"></div>
                         </div>
                     </div>
@@ -261,13 +262,13 @@
                                         </div>
                                     </div>
                                     <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
+                                        <a href="{% url 'product-cart-page' %}" title="Add To cart">
                                             <i class="ion-bag"></i>
                                         </a>
-                                        <a href="compare.html" title="Compare">
+                                        <a href="{% url 'product-compare-page' %}" title="Compare">
                                             <i class="ion-ios-loop-strong"></i>
                                         </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
+                                        <a href="{% url 'product-wishlist-page' %}" title="Add To Wishlist">
                                             <i class="ion-ios-heart-outline"></i>
                                         </a>
                                         <a href="#exampleModalCenter" data-bs-toggle="modal" title="Quick View">
@@ -347,87 +348,26 @@
                         "slidesToShow": 1
                         }}
                         ]'>
+                            {% for blog in blogs %}
                             <div class="single-blog">
                                 <div class="single-blog-thumb">
                                     <a href="../blog_main/blog.html">
-                                        <img src="{% static 'app/assets/images/blog/medium-size/1.jpg' %}" alt="Blog Image">
+                                        <img src="{{ blog.image.url }}" alt="Blog Image">
                                     </a>
                                 </div>
                                 <div class="single-blog-content position-relative">
-                                    <div class="post-date text-center border rounded d-flex flex-column position-absolute">
-                                        <span>14</span>
-                                        <span>01</span>
-                                    </div>
+                                
                                     <div class="post-meta">
-                                        <span class="author">Author: Obrien Demo Admin</span>
+                                        <span class="author">Author: {{ blog.author }}</span>
                                     </div>
                                     <h2 class="post-title">
-                                        <a href="../blog_main/blog.html">There Are Many Variation of Passages of Lorem Ipsum Available</a>
+                                        <a href="../blog_main/blog.html">{{ blog.title }}</a>
                                     </h2>
-                                    <p class="desc-content">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making...</p>
+                                    <p class="desc-content">{{ blog.description }}</p>
                                 </div>
                             </div>
-                            <div class="single-blog">
-                                <div class="single-blog-thumb">
-                                    <a href="../blog_main/blog.html">
-                                        <img src="{% static 'app/assets/images/blog/medium-size/2.jpg' %}" alt="Blog Image">
-                                    </a>
-                                </div>
-                                <div class="single-blog-content position-relative">
-                                    <div class="post-date text-center border rounded d-flex flex-column position-absolute">
-                                        <span>14</span>
-                                        <span>01</span>
-                                    </div>
-                                    <div class="post-meta">
-                                        <span class="author">Author: Obrien Demo Admin</span>
-                                    </div>
-                                    <h2 class="post-title">
-                                        <a href="../blog_main/blog.html">There Are Many Variation of Passages of Lorem Ipsum Available</a>
-                                    </h2>
-                                    <p class="desc-content">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making...</p>
-                                </div>
-                            </div>
-                            <div class="single-blog">
-                                <div class="single-blog-thumb">
-                                    <a href="../blog_main/blog.html">
-                                        <img src="{% static 'app/assets/images/blog/medium-size/3.jpg' %}" alt="Blog Image">
-                                    </a>
-                                </div>
-                                <div class="single-blog-content position-relative">
-                                    <div class="post-date text-center border rounded d-flex flex-column position-absolute">
-                                        <span>14</span>
-                                        <span>01</span>
-                                    </div>
-                                    <div class="post-meta">
-                                        <span class="author">Author: Obrien Demo Admin</span>
-                                    </div>
-                                    <h2 class="post-title">
-                                        <a href="../blog_main/blog.html">The Standard Chunk Of Lorem Ipsum Used Since</a>
-                                    </h2>
-                                    <p class="desc-content">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making...</p>
-                                </div>
-                            </div>
-                            <div class="single-blog">
-                                <div class="single-blog-thumb">
-                                    <a href="../blog_main/blog.html">
-                                        <img src="{% static 'app/assets/images/blog/medium-size/4.jpg' %}" alt="Blog Image">
-                                    </a>
-                                </div>
-                                <div class="single-blog-content position-relative">
-                                    <div class="post-date text-center border rounded d-flex flex-column position-absolute">
-                                        <span>14</span>
-                                        <span>01</span>
-                                    </div>
-                                    <div class="post-meta">
-                                        <span class="author">Author: Obrien Demo Admin</span>
-                                    </div>
-                                    <h2 class="post-title">
-                                        <a href="../blog_main/blog.html">There Are Many Variation of Passages of Lorem Ipsum Available</a>
-                                    </h2>
-                                    <p class="desc-content">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making...</p>
-                                </div>
-                            </div>
-                        </div>
+                            {% endfor    %}
+
                     </div>
                 </div>
             </div>
@@ -444,7 +384,7 @@
                                 <p class="desc-content">Call our support 24/7 at 01234-567-890</p>
                             </div>
                             <div class="support-button d-flex align-items-center">
-                                <a class="obrien-button primary-btn" href="contact-us.html">Contact now</a>
+                                <a class="obrien-button primary-btn" href="{% url 'contact' %}">Contact now</a>
                             </div>
                         </div>
                     </div>
@@ -513,7 +453,7 @@
                                                 </div>
                                             </div>
                                             <div class="add-to_cart">
-                                                <a class="btn obrien-button primary-btn" href="cart.html">Add to cart</a>
+                                                <a class="btn obrien-button primary-btn" href="{% url 'product-cart-page' %}">Add to cart</a>
                                             </div>
                                         </div>
                                     </div>

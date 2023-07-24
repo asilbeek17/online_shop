@@ -1,6 +1,8 @@
 from django.db import models
 
 
+# Product uchun model ---------------------
+
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -29,3 +31,24 @@ class Product(BaseModel):
 
     def __str__(self):
         return self.title
+
+
+# Blog uchun model ---------------------
+
+class Author(models.Model):
+    name = models.CharField(max_length=155)
+
+    def __str__(self):
+        return self.name
+
+
+class Blog(models.Model):
+     image = models.ImageField(upload_to='blog/')
+     title = models.CharField(max_length=155)
+     description = models.TextField()
+     author = models.ForeignKey(to='app.Author',
+                                on_delete=models.CASCADE,
+                                related_name='blogs')
+
+     def __str__(self):
+         return self.title
