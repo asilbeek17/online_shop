@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from app.form import ProductModelForm
+from app.form import ProductModelForm, FeedbackModelForm
 from app.models import Product, Category, Blog
 
 
@@ -10,9 +10,9 @@ def index_view(request):
     blogs = Blog.objects.all()[:3]
     return render(request=request,
                   template_name='app/main/index.html',
-                  context={"products":products,
-                           "laptops":laptops,
-                           'blogs':blogs})
+                  context={"products": products,
+                           "laptops": laptops,
+                           'blogs': blogs})
 
 
 def shop_view(request):
@@ -20,8 +20,8 @@ def shop_view(request):
     products_right = Product.objects.order_by('-price').all()[:3]
     return render(request=request,
                   template_name='app/shop_main/shop.html',
-                  context={"products":products,
-                           "products_right":products_right})
+                  context={"products": products,
+                           "products_right": products_right})
 
 
 def product_details_view(request, product_id):
@@ -41,8 +41,8 @@ def add_product_view(request):
     form = ProductModelForm()
     return render(request=request,
                   template_name='app/add_product.html',
-                  context={"form":form,
-                           "categories":categories})
+                  context={"form": form,
+                           "categories": categories})
 
 
 def product_error404(request):
@@ -76,13 +76,17 @@ def product_frequently_questions(request):
 
 
 def product_blog(request):
+    blog = Blog.objects.all()
     return render(request=request,
-                  template_name='app/blog_main/blog.html')
+                  template_name='app/blog_main/blog.html',
+                  context={'blog': blog})
 
 
-def product_blog_details_page(request):
+def product_blog_details_page(request, blog_id):
+    blog = Blog.objects.filter(id=blog_id).first()
     return render(request=request,
-                  template_name='app/blog_main/blog-details.html')
+                  template_name='app/blog_main/blog-details.html',
+                  context={'blog': blog})
 
 
 def my_account(request):
@@ -106,8 +110,12 @@ def about_page(request):
 
 
 def contact_page(request):
+    if request.method == "POST":
+        form = FeedbackModelForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('shop_main')
+    form = ProductModelForm()
     return render(request=request,
-                  template_name='app/contact.html')
-
-
-
+                  template_name='app/contact.html',
+                  context={"form": form})

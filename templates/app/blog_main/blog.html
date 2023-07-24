@@ -111,11 +111,12 @@
                     <div class="col-lg-9 col-12 col-custom widget-mt">
                         <!-- Blog Wrapper Start -->
                         <div class="row">
+                            {% for blog_single in blog %}
                             <div class="col-md-6 col-custom mb-4">
                                 <div class="single-blog">
                                     <div class="single-blog-thumb">
-                                        <a href="blog.html">
-                                            <img src="{% static 'app/assets/images/blog/medium-size/1.jpg' %}" alt="Blog Image">
+                                        <a href="{{ blog_single.id }}/">
+                                            <img src="{{ blog_single.image.url }}" alt="Blog Image">
                                         </a>
                                     </div>
                                     <div class="single-blog-content position-relative">
@@ -124,215 +125,16 @@
                                             <span>01</span>
                                         </div>
                                         <div class="post-meta">
-                                            <span class="author">Author: Obrien Demo Admin</span>
+                                            <span class="author">Author: {{ blog_single.author }}</span>
                                         </div>
                                         <h2 class="post-title">
-                                            <a href="blog.html">There Are Many Variation of Passages of Lorem Ipsum Available</a>
+                                            <a href="{{ blog_single.id }}/">{{ blog_single.title }}</a>
                                         </h2>
-                                        <p class="desc-content">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making...</p>
+                                        <p class="desc-content">{{ blog_single.description }}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-custom mb-4">
-                                <div class="single-blog">
-                                    <div class="single-blog-thumb">
-                                        <a href="blog.html">
-                                            <img src="{% static 'app/assets/images/blog/medium-size/2.jpg' %}" alt="Blog Image">
-                                        </a>
-                                    </div>
-                                    <div class="single-blog-content position-relative">
-                                        <div class="post-date text-center border rounded d-flex flex-column position-absolute">
-                                            <span>14</span>
-                                            <span>01</span>
-                                        </div>
-                                        <div class="post-meta">
-                                            <span class="author">Author: Obrien Demo Admin</span>
-                                        </div>
-                                        <h2 class="post-title">
-                                            <a href="blog.html">The Standard Chunk Of Lorem Ipsum Used Since</a>
-                                        </h2>
-                                        <p class="desc-content">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making...</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-custom mb-4">
-                                <div class="single-blog">
-                                    <div class="single-blog-thumb">
-                                        <a href="blog.html">
-                                            <img src="{% static 'app/assets/images/blog/medium-size/3.jpg' %}" alt="Blog Image">
-                                        </a>
-                                    </div>
-                                    <div class="single-blog-content position-relative">
-                                        <div class="post-date text-center border rounded d-flex flex-column position-absolute">
-                                            <span>14</span>
-                                            <span>01</span>
-                                        </div>
-                                        <div class="post-meta">
-                                            <span class="author">Author: Obrien Demo Admin</span>
-                                        </div>
-                                        <h2 class="post-title">
-                                            <a href="blog.html">The Standard Chunk Of Lorem Ipsum Used Since</a>
-                                        </h2>
-                                        <p class="desc-content">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making...</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-custom mb-4">
-                                <div class="single-blog">
-                                    <div class="single-blog-thumb">
-                                        <a href="blog.html">
-                                            <img src="{% static 'app/assets/images/blog/medium-size/4.jpg' %}" alt="Blog Image">
-                                        </a>
-                                    </div>
-                                    <div class="single-blog-content position-relative">
-                                        <div class="post-date text-center border rounded d-flex flex-column position-absolute">
-                                            <span>14</span>
-                                            <span>01</span>
-                                        </div>
-                                        <div class="post-meta">
-                                            <span class="author">Author: Obrien Demo Admin</span>
-                                        </div>
-                                        <h2 class="post-title">
-                                            <a href="blog.html">There Are Many Variation of Passages of Lorem Ipsum Available</a>
-                                        </h2>
-                                        <p class="desc-content">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making...</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-custom mb-4">
-                                <div class="single-blog">
-                                    <div class="single-blog-thumb">
-                                        <a href="blog.html">
-                                            <img src="{% static 'app/assets/images/blog/medium-size/5.jpg' %}" alt="Blog Image">
-                                        </a>
-                                    </div>
-                                    <div class="single-blog-content position-relative">
-                                        <div class="post-date text-center border rounded d-flex flex-column position-absolute">
-                                            <span>14</span>
-                                            <span>01</span>
-                                        </div>
-                                        <div class="post-meta">
-                                            <span class="author">Author: Obrien Demo Admin</span>
-                                        </div>
-                                        <h2 class="post-title">
-                                            <a href="blog.html">The Standard Chunk Of Lorem Ipsum Used Since</a>
-                                        </h2>
-                                        <p class="desc-content">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making...</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-custom mb-4">
-                                <div class="single-blog">
-                                    <div class="single-blog-thumb">
-                                        <a href="blog.html">
-                                            <img src="{% static 'app/assets/images/blog/medium-size/6.jpg' %}" alt="Blog Image">
-                                        </a>
-                                    </div>
-                                    <div class="single-blog-content position-relative">
-                                        <div class="post-date text-center border rounded d-flex flex-column position-absolute">
-                                            <span>14</span>
-                                            <span>01</span>
-                                        </div>
-                                        <div class="post-meta">
-                                            <span class="author">Author: Obrien Demo Admin</span>
-                                        </div>
-                                        <h2 class="post-title">
-                                            <a href="blog.html">There Are Many Variation of Passages of Lorem Ipsum Available</a>
-                                        </h2>
-                                        <p class="desc-content">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making...</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-custom mb-4">
-                                <div class="single-blog">
-                                    <div class="single-blog-thumb">
-                                        <a href="blog.html">
-                                            <img src="{% static 'app/assets/images/blog/medium-size/7.jpg' %}" alt="Blog Image">
-                                        </a>
-                                    </div>
-                                    <div class="single-blog-content position-relative">
-                                        <div class="post-date text-center border rounded d-flex flex-column position-absolute">
-                                            <span>14</span>
-                                            <span>01</span>
-                                        </div>
-                                        <div class="post-meta">
-                                            <span class="author">Author: Obrien Demo Admin</span>
-                                        </div>
-                                        <h2 class="post-title">
-                                            <a href="blog.html">The Standard Chunk Of Lorem Ipsum Used Since</a>
-                                        </h2>
-                                        <p class="desc-content">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making...</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-custom mb-4">
-                                <div class="single-blog">
-                                    <div class="single-blog-thumb">
-                                        <a href="blog.html">
-                                            <img src="{% static 'app/assets/images/blog/medium-size/8.jpg' %}" alt="Blog Image">
-                                        </a>
-                                    </div>
-                                    <div class="single-blog-content position-relative">
-                                        <div class="post-date text-center border rounded d-flex flex-column position-absolute">
-                                            <span>14</span>
-                                            <span>01</span>
-                                        </div>
-                                        <div class="post-meta">
-                                            <span class="author">Author: Obrien Demo Admin</span>
-                                        </div>
-                                        <h2 class="post-title">
-                                            <a href="blog.html">The Standard Chunk Of Lorem Ipsum Used Since</a>
-                                        </h2>
-                                        <p class="desc-content">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making...</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 col-custom mb-4">
-                                <div class="single-blog">
-                                    <div class="single-blog-thumb">
-                                        <a href="blog.html">
-                                            <img src="{% static 'app/assets/images/blog/medium-size/9.jpg' %}" alt="Blog Image">
-                                        </a>
-                                    </div>
-                                    <div class="single-blog-content position-relative">
-                                        <div class="post-date text-center border rounded d-flex flex-column position-absolute">
-                                            <span>14</span>
-                                            <span>01</span>
-                                        </div>
-                                        <div class="post-meta">
-                                            <span class="author">Author: Obrien Demo Admin</span>
-                                        </div>
-                                        <h2 class="post-title">
-                                            <a href="blog.html">There Are Many Variation of Passages of Lorem Ipsum Available</a>
-                                        </h2>
-                                        <p class="desc-content">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making...</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 col-custom mb-4">
-                                <div class="single-blog">
-                                    <div class="single-blog-thumb">
-                                        <a href="blog.html">
-                                            <img src="{% static 'app/assets/images/blog/medium-size/10.jpg' %}" alt="Blog Image">
-                                        </a>
-                                    </div>
-                                    <div class="single-blog-content position-relative">
-                                        <div class="post-date text-center border rounded d-flex flex-column position-absolute">
-                                            <span>14</span>
-                                            <span>01</span>
-                                        </div>
-                                        <div class="post-meta">
-                                            <span class="author">Author: Obrien Demo Admin</span>
-                                        </div>
-                                        <h2 class="post-title">
-                                            <a href="blog.html">There Are Many Variation of Passages of Lorem Ipsum Available</a>
-                                        </h2>
-                                        <p class="desc-content">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making...</p>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                         <!-- Blog Wrapper End -->
                         <!-- Bottom Toolbar Start -->

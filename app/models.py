@@ -52,3 +52,14 @@ class Blog(models.Model):
 
      def __str__(self):
          return self.title
+
+
+class Feedback(models.Model):
+    name = models.CharField(null=True, max_length=100)
+    email = models.CharField(default='none', null=False, max_length=100)
+    subject = models.CharField(null=True, max_length=100)
+    feed = models.TextField(null=True)
+
+
+    def __str__(self):
+        return self.email
