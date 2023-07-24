@@ -62,7 +62,7 @@
                             <div class="col-12 col-custom product-area">
                                 <div class="single-product position-relative">
                                     <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
+                                        <a class="d-block" href="{{ product.id }}">
                                             <img src="{{ product.image.url }}" alt="" class="product-image-1 w-100">
                                         </a>
                                     </div>
@@ -105,7 +105,7 @@
                                             <i class="fa fa-star-o"></i>
                                         </div>
                                         <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">{{ product.title }}</a></h4>
+                                            <h4 class="title-2"> <a href="{{ product.id }}">{{ product.title }}</a></h4>
                                         </div>
                                         <div class="price-box">
                                             <span class="regular-price ">${{ product.price }}</span>
