@@ -1,11 +1,9 @@
 
 
-
-
 {% extends 'app/main/base.html' %}
 {% load static %}
 
-{% block title %} Shop {% endblock title %}
+{% block title %} Edit Product {% endblock title %}
 
 
 
@@ -35,7 +33,7 @@
                             </form>
                         </div>
                         <!-- mobile menu start -->
-                            {% include 'app/main/mobile_navbar.html' %}
+                        {% include 'app/main/mobile_navbar.html' %}
                         <!-- mobile menu end -->
                         <div class="header-top-settings offcanvas-curreny-lang-support">
                             <!-- mobile menu navigation start -->
@@ -97,10 +95,10 @@
                 <div class="row">
                     <div class="col-12 text-center">
                         <div class="breadcrumb-content position-relative section-content">
-                            <h3 class="title-3">contact Us</h3>
+                            <h3 class="title-3">Edit Product</h3>
                             <ul>
                                 <li><a href="{% url 'index' %}">Home</a></li>
-                                <li>Contact Us</li>
+                                <li>Edit Product</li>
                             </ul>
                         </div>
                     </div>
@@ -108,90 +106,54 @@
             </div>
         </div>
         <!-- Breadcrumb Area End Here -->
-        <!-- Contact Us Area Start Here -->
-        <div class="contact-us-area">
+        <!-- Login Area Start Here -->
+        <div class="login-register-area mt-no-text mb-no-text">
             <div class="container container-default-2 custom-area">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-custom">
-                        <div class="contact-info-item">
-                            <div class="con-info-icon">
-                                <i class="ion-ios-location-outline"></i>
+                    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-custom">
+                        <div class="login-register-wrapper">
+                            <div class="section-content text-center mb-5">
+                                <h2 class="title-4 mb-2">Edit Product</h2>
                             </div>
-                            <div class="con-info-txt">
-                                <h4>Our Location</h4>
-                                <p>(800) 123 456 789 / (800) 123 456 789 info@example.com</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-custom">
-                        <div class="contact-info-item">
-                            <div class="con-info-icon">
-                                <i class="ion-iphone"></i>
-                            </div>
-                            <div class="con-info-txt">
-                                <h4>Contact us Anytime</h4>
-                                <p>Mobile: 012 345 678<br>Fax: 123 456 789</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-custom text-align-center">
-                        <div class="contact-info-item">
-                            <div class="con-info-icon">
-                                <i class="ion-ios-email-outline"></i>
-                            </div>
-                            <div class="con-info-txt">
-                                <h4>Support Overall</h4>
-                                <p>Support24/7@example.com <br> info@example.com</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 col-custom">
-                        <form  method="post" action="{% url 'contact' %}" id="contact-form" accept-charset="UTF-8" class="contact-form">
-                            {% csrf_token %}
-                            <div class="comment-box mt-5">
-                                <h5 class="text-uppercase">Get in Touch</h5>
-                                <div class="row mt-3">
-                                    <div class="col-md-6 col-custom">
-                                        <div class="input-item mb-4">
-                                            <input class="border rounded-0 w-100 input-area name" type="text" name="name" id="con_name" placeholder="Name">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-custom">
-                                        <div class="input-item mb-4">
-                                            <input class="border rounded-0 w-100 input-area email" type="email" name="email" id="con_email" placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-custom">
-                                        <div class="input-item mb-4">
-                                            <input class="border rounded-0 w-100 input-area email" type="text" name="subject" id="con_content" placeholder="Subject">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-custom">
-                                        <div class="input-item mb-4">
-                                            <textarea cols="30" rows="5" class="border rounded-0 w-100 custom-textarea input-area" name="feed" id="con_message" placeholder="Message"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-custom mt-40">
-                                        <button type="submit" class="btn obrien-button primary-btn rounded-0 mb-0">Send A Message</button>
-                                    </div>
-                                    <p class="col-12 col-custom form-message mb-0"></p>
+                            <form action="{% url 'edit-product' form.instance.id %}" method="post" enctype="multipart/form-data" >
+                                {% csrf_token %}
+                                <div class="single-input-item mb-3">
+                                    <input type="file" placeholder="Image" name="image">
                                 </div>
-                            </div>
-                        </form>
+                                <div class="single-input-item mb-3">
+                                    <input type="text" placeholder="Title" name="title">
+                                </div>
+                                <div class="single-input-item mb-3">
+                                    <input type="number" placeholder="Price" name="price">
+                                </div>
+                                <div class="single-input-item mb-3">
+                                    <input type="number" placeholder="Rank" name="rank">
+                                </div>
+                                <div class="single-input-item mb-3">
+                                    <input type="text" placeholder="Description" name="description">
+                                </div>
+                                <div class="single-input-item mb-3">
+                                    <select class="form-select" aria-label="Default select example" name="category">
+                                        {% for category in categories %}
+                                            <option value="{{ category.id }}">{{ category.title }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+
+                     
+
+
+                                <div class="single-input-item mb-3">
+                                    <button class="btn obrien-button-2 primary-color" type="submit">Edit Product</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Contact Us Area End Here -->
-        <!-- Google Maps -->
-        <div class="google-map-area">
-            <div id="contacts" class="map-area">
-                <div id="googleMap"></div>
-            </div>
-        </div>
-        <!-- Google Maps End -->
+        <!-- Login Area End Here -->
         <!-- Support Area Start Here -->
         <div class="support-area">
             <div class="container container-default custom-area">

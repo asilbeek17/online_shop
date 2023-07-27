@@ -32,32 +32,7 @@
                             </form>
                         </div>
                         <!-- mobile menu start -->
-                        <div class="mobile-navigation">
-                            <!-- mobile menu navigation start -->
-                            <nav>
-                                <ul class="mobile-menu">
-                                    <li class="menu-item-has-children"><a href="{% url 'index' %}">Home</a>
-                                    </li>
-                                    <li class="menu-item-has-children"><a href="{% url 'shop_main' %}">Shop</a>
-                                            </li>
-                                            <li class="mega-title has-children"><a href="{% url 'product-details' %}">Product Details</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children "><a href="{% url 'product-blog-page' %}">Blog</a>
-                                    </li>
-                                    <li class="menu-item-has-children "><a href="#">Pages</a>
-                                        <ul class="dropdown">
-                                            <li><a href="{% url 'product-frequently-questions-page' %}">FAQ</a></li>
-                                            <li><a href="{% url 'my-account' %}">My Account</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="{% url 'about' %}">About Us</a></li>
-                                    <li><a href="{% url 'about' %}">Contact</a></li>
-                                </ul>
-                            </nav>
-                            <!-- mobile menu navigation end -->
-                        </div>
+                       {% include 'app/main/mobile_navbar.html' %}
                         <!-- mobile menu end -->
                         <div class="header-top-settings offcanvas-curreny-lang-support">
                             <!-- mobile menu navigation start -->

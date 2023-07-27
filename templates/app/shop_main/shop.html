@@ -41,15 +41,13 @@
                                 <button data-role="grid_3" type="button" class="btn-grid-3" data-bs-toggle="tooltip" title="3"><i class="fa fa-th"></i></button>
                             </div>
                             <div class="shop-select">
-                                <form class="d-flex flex-column w-100" action="#">
+                                <form class="d-flex flex-column w-100" action="" method="get">
                                     <div class="form-group">
-                                        <select class="form-control nice-select w-100">
-                                            <option selected value="1">Alphabetically, A-Z</option>
-                                            <option value="2">Sort by popularity</option>
-                                            <option value="3">Sort by newness</option>
-                                            <option value="4">Sort by price: low to high</option>
-                                            <option value="5">Sort by price: high to low</option>
-                                            <option value="6">Product Name: Z</option>
+                                            <button type="submit" class="btn btn-warning">Sort by:</button>
+                                        <select class="form-control nice-select w-100" name="sort_by">
+                                            <option selected value="title">Title</option>
+                                            <option selected value="price">Price</option>
+
                                         </select>
                                     </div>
                                 </form>
@@ -58,7 +56,7 @@
                         <!--shop toolbar end-->
                         <!-- Shop Wrapper Start -->
                         <div class="row shop_wrapper grid_list">
-                            {% for product in products %}
+                            {% for product in product_list %}
                             <div class="col-12 col-custom product-area">
                                 <div class="single-product position-relative">
                                     <div class="product-image">
@@ -112,13 +110,13 @@
                                             <span class="old-price"><del>$90.00</del></span>
                                         </div>
                                         <div class="add-action-listview d-flex">
-                                            <a href="cart.html" title="Add To cart">
+                                            <a href="{% url 'product-cart-page' %}" title="Add To cart">
                                                 <i class="ion-bag"></i>
                                             </a>
-                                            <a href="compare.html" title="Compare">
+                                            <a href="{% url 'product-compare-page' %}" title="Compare">
                                                 <i class="ion-ios-loop-strong"></i>
                                             </a>
-                                            <a href="wishlist.html" title="Add To Wishlist">
+                                            <a href="{% url 'product-wishlist-page' %}" title="Add To Wishlist">
                                                 <i class="ion-ios-heart-outline"></i>
                                             </a>
                                             <a href="#exampleModalCenter" data-bs-toggle="modal" title="Quick View">
@@ -140,16 +138,27 @@
                                 <div class="toolbar-bottom mt-30">
                                     <nav class="pagination pagination-wrap mb-10 mb-sm-0">
                                         <ul class="pagination">
+                                            {% if product_list.has_previous %}
                                             <li class="disabled prev">
-                                                <i class="ion-ios-arrow-thin-left"></i>
+                                                <a href="?page={{ product_list.previous_page_number }}">
+                                                    <i class="ion-ios-arrow-thin-left"></i></a>
                                             </li>
-                                            <li class="active"><a>1</a></li>
-                                            <li>
-                                                <a href="#">2</a>
-                                            </li>
+                                            {% endif %}
+                                            {% for i in product_list.paginator.page_range  %}
+                                            {% if product_list.number == i %}
+                                                <li class="active"><a>{{ i }}</a></li>
+                                             {% else %}
+                                                <li ><a href="?page={{ i }}" >{{ i }}</a></li>
+
+                                            {% endif %}
+                                            {% endfor %}
+
+                                            {% if product_list.has_next %}
+
                                             <li class="next">
-                                                <a href="#" title="Next >>"><i class="ion-ios-arrow-thin-right"></i></a>
+                                                <a href="?page={{ product_list.next_page_number }}" title="Next >>"><i class="ion-ios-arrow-thin-right"></i></a>
                                             </li>
+                                            {% endif %}
                                         </ul>
                                     </nav>
                                     <p class="desc-content text-center text-sm-right">Showing 1 - 12 of 34 result</p>
@@ -165,14 +174,18 @@
                                 <div class="widget-list widget-mb-1">
                                     <h3 class="widget-title">Search</h3>
                                     <div class="search-box">
+
+                                        <form action="" method="get">
+
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search Our Store" aria-label="Search Our Store">
+                                            <input type="text" class="form-control" name="query" value="{{ query }}" placeholder="Search Our Store" aria-label="Search Our Store">
                                             <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" type="button">
+                                                <button class="btn btn-outline-secondary" type="submit">
                                                     <i class="fa fa-search"></i>
                                                 </button>
                                             </div>
                                         </div>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="widget-list widget-mb-1">

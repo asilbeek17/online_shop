@@ -23,7 +23,17 @@
                                             <li>
                                                 <a href="{% url 'shop_main' %}">
                                                     <span class="menu-text">Shop</span>
+                                                    <i class="fa fa-angle-down"></i>
+
                                                 </a>
+                                                 <ul class="dropdown-submenu dropdown-hover">
+                                                     {% if user.is_authenticated %}
+                                                    <li><a href={% url 'add-product' %}>Add Product</a></li>
+                                                    <li><a href={% url 'shop_main' %}>Shop</a></li>
+                                                     {% else %}
+                                                      <li><a href={% url 'shop_main' %}>Shop</a></li>
+                                                     {% endif %}
+                                                </ul>
 
 
 
@@ -41,10 +51,15 @@
                                                     <i class="fa fa-angle-down"></i>
                                                 </a>
                                                 <ul class="dropdown-submenu dropdown-hover">
+                                                    {% if user.is_authenticated %}
                                                     <li><a href="{% url 'product-frequently-questions-page' %}">FAQ</a></li>
                                                     <li><a href="{% url 'my-account' %}">My Account</a></li>
-                                                    <li><a href="{% url 'login' %}">Login</a></li>
-                                                    <li><a href="{% url 'register' %}">Register</a></li>
+                                                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                                                    {% else %}
+                                                        <li><a href="{% url 'product-frequently-questions-page' %}">FAQ</a></li>
+                                                        <li><a href="{% url 'login' %}">Login</a></li>
+                                                        <li><a href="{% url 'register' %}">Register</a></li>
+                                                    {% endif %}
                                                 </ul>
                                             </li>
                                             <li>
@@ -63,8 +78,13 @@
                                     <div class="header-right-area main-nav">
                                         <ul class="nav">
                                             <li class="login-register-wrap d-none d-xl-flex">
+                                            {% if user.is_authenticated %}
+                                                <span><a href="{% url 'logout' %}">Logout</a></span>
+                                            {% else %}
                                                 <span><a href="{% url 'login' %}">Login</a></span>
                                                 <span><a href="{% url 'register' %}">Register</a></span>
+
+                                             {% endif %}
                                             </li>
                                             <li class="sidemenu-wrap d-none d-lg-flex">
                                                 <a href="#">USD <i class="fa fa-caret-down"></i> </a>

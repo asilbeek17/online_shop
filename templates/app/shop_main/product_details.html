@@ -119,8 +119,8 @@
                         }'>
                                 <div class="single-image border">
 
-                                        <img src="{{ product.image.url }}"
-                                             alt="Product">
+                                    <img src="{{ product.image.url }}"
+                                         alt="Product">
                                 </div>
 
                             </div>
@@ -137,7 +137,7 @@
                             {"breakpoint":992, "settings": {"slidesToShow": 4}},
                             {"breakpoint":575, "settings": {"slidesToShow": 3}}
                         ]'>
-{#                               
+                               
                             </div>
                         </div>
                     </div>
@@ -176,9 +176,20 @@
                                        href="{% url 'product-wishlist-page' %}">Add to wishlist</a>
                                 </div>
                             </div>
-                            <div class="buy-button mb-5">
-                                <a href="#" class="btn obrien-button-3 black-button">Buy it now</a>
-                            </div>
+                            <br>
+                            <button type="submit" class="btn obrien-button primary-btn">  <a
+                                    href="{% url 'edit-product' product.id %}">Edit Product</a>
+                                        </button>
+
+
+                            <br>   <br>
+
+                                    <button><a class="btn obrien-button primary-btn" href="{% url 'delete-product' product.id %}">Delete Product
+                                        </a></button>
+
+
+                            <br><br><br><br>
+
                             <div class="social-share mb-4">
                                 <span>Share :</span>
                                 <a href="#"><i class="fa fa-facebook-square facebook-color"></i></a>

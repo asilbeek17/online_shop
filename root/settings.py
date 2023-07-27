@@ -40,6 +40,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'root.urls'
+AUTH_USER_MODEL = 'app.User'
 
 TEMPLATES = [
     {
