@@ -170,22 +170,45 @@
                                     </div>
                                 </div>
                                 <div class="add-to_cart">
+                                    {% if user.is_authenticated %}
                                     <a class="btn obrien-button primary-btn" href="{% url 'product-cart-page' %}">Add to
                                         cart</a>
-                                    <a class="btn obrien-button-2 treansparent-color pt-0 pb-0"
-                                       href="{% url 'product-wishlist-page' %}">Add to wishlist</a>
+                                    {% else %}
+                                    <a class="btn obrien-button primary-btn"
+                                       href={% url 'login' %}>Add to cart</a>
+                                    {% endif %}
+
+
+
+                                       {% if user.is_authenticated %}
+                                           <a class="btn obrien-button-2 treansparent-color pt-0 pb-0"
+                                       href="{% url 'add-wishlist' product.id %}">Add to wishlist</a>
+                                        {% else %}
+                                           <a class="btn obrien-button-2 treansparent-color pt-0 pb-0"
+                                           href={% url 'login' %}>Add to wishlist</a>
+                                    {% endif %}
                                 </div>
                             </div>
                             <br>
-                            <button type="submit" class="btn obrien-button primary-btn">  <a
-                                    href="{% url 'edit-product' product.id %}">Edit Product</a>
-                                        </button>
+                            <button type="submit" class="btn obrien-button primary-btn">
+                                {% if user.is_authenticated %}
+                                <a href="{% url 'edit-product' product.id %}">Edit Product</a>
+                                {% else %}
+                                <a href="{% url 'login' %}">Edit Product</a>
+                                {% endif %}
+                            </button>
 
 
                             <br>   <br>
+                                    <button>
+                           {% if user.is_authenticated %}
+                             <a class="btn obrien-button primary-btn" href="{% url 'delete-product' product.id %}">Delete Product
+                                        </a>
 
-                                    <button><a class="btn obrien-button primary-btn" href="{% url 'delete-product' product.id %}">Delete Product
-                                        </a></button>
+                            {% else %}
+                         <a class="btn obrien-button primary-btn" href="{% url 'login'  %}">Delete Product</a>
+                              {% endif %}
+                                    </button>
 
 
                             <br><br><br><br>
@@ -446,14 +469,16 @@
                         "slidesToShow": 1
                         }}
                         ]'>
+                            {% for product in products%}
                             <div class="single-item">
                                 <div class="single-product position-relative">
                                     <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="{% static 'app/assets/images/product/1.jpg' %}" alt=""
+                                        <a class="d-block" href="{% url 'product-details' product.id %}">
+                                            <img src="{{ product.image.url }}" height="300px" width="250px" alt=""
                                                  class="product-image-1 w-100">
-                                            <img src="{% static 'app/assets/images/product/2.jpg' %}" alt=""
-                                                 class="product-image-2 position-absolute w-100">
+                                            <img src="{{ product.image2.url }}" alt="{{ product.title }}"  height="300px" width="250px"  class="product-image-2 position-absolute w-100">
+
+
                                         </a>
                                     </div>
                                     <div class="product-content">
@@ -465,22 +490,22 @@
                                             <i class="fa fa-star-o"></i>
                                         </div>
                                         <div class="product-title">
-                                            <h4 class="title-2"><a href="product-details.html">Product dummy name</a>
+                                            <h4 class="title-2"><a href="{% url 'product-details' product.id %}">{{ product.title }}</a>
                                             </h4>
                                         </div>
                                         <div class="price-box">
-                                            <span class="regular-price ">$80.00</span>
+                                            <span class="regular-price ">${{ product.price }}</span>
                                             <span class="old-price"><del>$90.00</del></span>
                                         </div>
                                     </div>
                                     <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
+                                        <a href="{% url 'product-cart-page' %}" title="Add To cart">
                                             <i class="ion-bag"></i>
                                         </a>
-                                        <a href="compare.html" title="Compare">
+                                        <a href="{% url 'product-compare-page' %}" title="Compare">
                                             <i class="ion-ios-loop-strong"></i>
                                         </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
+                                        <a href="{% url 'product-wishlist-page' %}" title="Add To Wishlist">
                                             <i class="ion-ios-heart-outline"></i>
                                         </a>
                                         <a href="#exampleModalCenter" data-bs-toggle="modal" title="Quick View">
@@ -489,181 +514,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="single-item">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="{% static 'app/assets/images/product/3.jpg' %}" alt=""
-                                                 class="product-image-1 w-100">
-                                            <img src="{% static 'app/assets/images/product/4.jpg' %}" alt=""
-                                                 class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"><a href="product-details.html">{{ product.title }}</a>
-                                            </h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$80.00</span>
-                                            <span class="old-price"><del>$90.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-bs-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single-item">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="{% static 'app/assets/images/product/5.jpg' %}" alt=""
-                                                 class="product-image-1 w-100">
-                                            <img src="{% static 'app/assets/images/product/6.jpg' %}" alt=""
-                                                 class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="label-product">
-                                        <span class="label-sale position-absolute text-uppercase text-white text-center d-block">Soldout</span>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"><a href="product-details.html">Product dummy title</a>
-                                            </h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$80.00</span>
-                                            <span class="old-price"><del>$90.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-bs-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single-item">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="{% static 'app/assets/images/product/7.jpg' %}" alt=""
-                                                 class="product-image-1 w-100">
-                                            <img src="{% static 'app/assets/images/product/8.jpg' %}" alt=""
-                                                 class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"><a href="product-details.html">Product dummy name</a>
-                                            </h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$80.00</span>
-                                            <span class="old-price"><del>$90.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-bs-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single-item">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="{% static 'app/assets/images/product/9.jpg' %}" alt=""
-                                                 class="product-image-1">
-                                            <img src="{% static 'app/assets/images/product/10.jpg' %}" alt=""
-                                                 class="product-image-2 position-absolute top-0 left-0">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"><a href="product-details.html">Product dummy title</a>
-                                            </h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$80.00</span>
-                                            <span class="old-price"><del>$90.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-bs-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
+
                         </div>
                     </div>
                 </div>
@@ -702,104 +554,17 @@
                         "slidesToShow": 1
                         }}
                         ]'>
+                            {% for product in products %}
                             <div class="single-item">
                                 <div class="single-product position-relative">
                                     <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="{% static 'app/assets/images/product/1.jpg' %}" alt=""
+                                        <a class="d-block" href="{% url 'product-details' product.id %}">
+                                            <img src="{{ product.image.url }}" height="300px" width="250px" alt=""
                                                  class="product-image-1 w-100">
-                                            <img src="{% static 'app/assets/images/product/2.jpg' %}" alt=""
-                                                 class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"><a href="product-details.html">Product dummy name</a>
-                                            </h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$80.00</span>
-                                            <span class="old-price"><del>$90.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-bs-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single-item">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="{% static 'app/assets/images/product/3.jpg' %}" alt=""
-                                                 class="product-image-1 w-100">
-                                            <img src="{% static 'app/assets/images/product/4.jpg' %}" alt=""
-                                                 class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"><a href="product-details.html">Product dummy title</a>
-                                            </h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$80.00</span>
-                                            <span class="old-price"><del>$90.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
+                                               <img src="{{ product.image2.url }}" alt="{{ product.title }}"  height="300px" width="250px"  class="product-image-2 position-absolute w-100">
 
-                                        <i class="ion-bag"></i>
+
                                         </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-bs-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single-item">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="{% static 'app/assets/images/product/5.jpg' %}" alt=""
-                                                 class="product-image-1 w-100">
-                                            <img src="{% static 'app/assets/images/product/6.jpg' %}" alt=""
-                                                 class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="label-product">
-                                        <span class="label-sale position-absolute text-uppercase text-white text-center d-block">Soldout</span>
                                     </div>
                                     <div class="product-content">
                                         <div class="product-rating">
@@ -810,11 +575,11 @@
                                             <i class="fa fa-star-o"></i>
                                         </div>
                                         <div class="product-title">
-                                            <h4 class="title-2"><a href="product-details.html">Product dummy title</a>
+                                            <h4 class="title-2"><a href="{% url 'product-details' product.id %}">{{ product.title }}</a>
                                             </h4>
                                         </div>
                                         <div class="price-box">
-                                            <span class="regular-price ">$80.00</span>
+                                            <span class="regular-price ">${{ product.price }}</span>
                                             <span class="old-price"><del>$90.00</del></span>
                                         </div>
                                     </div>
@@ -822,9 +587,7 @@
                                         <a href="{% url 'product-cart-page' %}" title="Add To cart">
                                             <i class="ion-bag"></i>
                                         </a>
-                                        <a href="{% url 'product-compare-page' %}" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
+                                       
                                         <a href="{% url 'product-wishlist-page' %}" title="Add To Wishlist">
                                             <i class="ion-ios-heart-outline"></i>
                                         </a>
@@ -834,92 +597,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="single-item">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="{% static 'app/assets/images/product/7.jpg' %}" alt=""
-                                                 class="product-image-1 w-100">
-                                            <img src="{% static 'app/assets/images/product/8.jpg' %}" alt=""
-                                                 class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"><a href="product-details.html">Product dummy name</a>
-                                            </h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$80.00</span>
-                                            <span class="old-price"><del>$90.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="{% url 'product-cart-page' %}" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="{% url 'product-compare-page' %}" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="{% url 'product-wishlist-page' %}" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-bs-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single-item">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="{% static 'app/assets/images/product/9.jpg' %}" alt=""
-                                                 class="product-image-1">
-                                            <img src="{% static 'app/assets/images/product/10.jpg' %}" alt=""
-                                                 class="product-image-2 position-absolute top-0 left-0">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"><a href="product-details.html">{{ product.title }}</a>
-                                            </h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$80.00</span>
-                                            <span class="old-price"><del>$90.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-bs-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
+
                         </div>
                     </div>
                 </div>
@@ -1007,7 +686,7 @@
                                                 </div>
                                             </div>
                                             <div class="add-to_cart">
-                                                <a class="btn obrien-button primary-btn" href="cart.html">Add to
+                                                <a class="btn obrien-button primary-btn" href="{% url 'product-cart-page' %}">Add to
                                                     cart</a>
                                             </div>
                                         </div>
@@ -1040,4 +719,9 @@
 
 
 
+
+
+
+
+                      
 

@@ -10,10 +10,10 @@
 
 {% block content %}
 
- <div class="contact-wrapper">
+    <div class="contact-wrapper">
         <header class="main-header-area">
             <!-- Main Header Area Start -->
-              {% include 'app/main/header.html' %}
+            {% include 'app/main/header.html' %}
             <!-- Main Header Area End -->
             <!-- Sticky Header Start Here-->
             {% include 'app/main/sticky.html' %}
@@ -115,48 +115,31 @@
                         <div class="wishlist-table table-responsive">
                             <table class="table table-bordered">
                                 <thead>
-                                    <tr>
-                                        <th class="pro-thumbnail">Image</th>
-                                        <th class="pro-title">Product</th>
-                                        <th class="pro-price">Price</th>
-                                        <th class="pro-stock">Stock Status</th>
-                                        <th class="pro-cart">Add to Cart</th>
-                                        <th class="pro-remove">Remove</th>
-                                    </tr>
+                                <tr>
+                                    <th class="pro-thumbnail">Image</th>
+                                    <th class="pro-title">Product</th>
+                                    <th class="pro-price">Price</th>
+                                    <th class="pro-stock">Stock Status</th>
+                                    <th class="pro-cart">Add to Cart</th>
+                                    <th class="pro-remove">Remove</th>
+                                </tr>
                                 </thead>
                                 <tbody>
+                                {% for product in products %}
                                     <tr>
-                                        <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="{% static 'app/assets/images/product/small-size/1.png' %}" alt="Product" /></a></td>
-                                        <td class="pro-title"><a href="#">Product dummy title <br> s / green</a></td>
-                                        <td class="pro-price"><span>$295.00</span></td>
+                                        <td class="pro-thumbnail"><a href="#"><img class="img-fluid"
+                                                                                   src="{{ product.image.url }}"
+                                                                                   alt="Product"/></a></td>
+                                        <td class="pro-title"><a href="#">{{ product.title }}</a></td>
+                                        <td class="pro-price"><span>${{ product.price }}</span></td>
                                         <td class="pro-stock"><span><strong>In Stock</strong></span></td>
-                                        <td class="pro-cart"><a href="checkout.html" class="btn obrien-button primary-btn text-uppercase">Add to Cart</a></td>
-                                        <td class="pro-remove"><a href="#"><i class="ion-trash-b"></i></a></td>
+                                        <td class="pro-cart"><a href="checkout.html"
+                                                                class="btn obrien-button primary-btn text-uppercase">Add
+                                            to Cart</a></td>
+                                        <td class="pro-remove"><a href="{% url 'delete-wishlist' product.id %}"><i
+                                                class="ion-trash-b"></i></a></td>
                                     </tr>
-                                    <tr>
-                                        <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="{% static 'app/assets/images/product/small-size/2.png' %}" alt="Product" /></a></td>
-                                        <td class="pro-title"><a href="#">Product title here <br> red</a></td>
-                                        <td class="pro-price"><span>$275.00</span></td>
-                                        <td class="pro-stock"><span><strong>In Stock</strong></span></td>
-                                        <td class="pro-cart"><a href="checkout.html" class="btn obrien-button primary-btn text-uppercase">Add to Cart</a></td>
-                                        <td class="pro-remove"><a href="#"><i class="ion-trash-b"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="{% static 'app/assets/images/product/small-size/3.png' %}" alt="Product" /></a></td>
-                                        <td class="pro-title"><a href="#">Product dummy title <br> s</a></td>
-                                        <td class="pro-price"><span>$295.00</span></td>
-                                        <td class="pro-stock"><span><strong>In Stock</strong></span></td>
-                                        <td class="pro-cart"><a href="checkout.html" class="btn obrien-button primary-btn text-uppercase">Add to Cart</a></td>
-                                        <td class="pro-remove"><a href="#"><i class="ion-trash-b"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="{% static 'app/assets/images/product/small-size/4.png' %}" alt="Product" /></a></td>
-                                        <td class="pro-title"><a href="#">Dummy Title</a></td>
-                                        <td class="pro-price"><span>$110.00</span></td>
-                                        <td class="pro-stock"><span><strong>In Stock</strong></span></td>
-                                        <td class="pro-cart"><a href="checkout.html" class="btn obrien-button primary-btn text-uppercase">Add to Cart</a></td>
-                                        <td class="pro-remove"><a href="#"><i class="ion-trash-b"></i></a></td>
-                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -185,7 +168,7 @@
         </div>
         <!-- Support Area End Here -->
         <!-- Footer Area Start Here -->
-          {% include 'app/main/footer.html' %}
+        {% include 'app/main/footer.html' %}
         <!-- Footer Area End Here -->
     </div>
 

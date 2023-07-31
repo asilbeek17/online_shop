@@ -3,8 +3,9 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
 from django.db.transaction import atomic
+from django.forms import HiddenInput
 
-from app.models import Product, Feedback, User, Post
+from app.models import Product, Feedback, Post, User
 
 
 class ProductModelForm(forms.ModelForm):
@@ -23,12 +24,11 @@ class FeedbackModelForm(forms.ModelForm):
 
 
 class PostModelForm(forms.ModelForm):
+    user = forms.IntegerField(widget=HiddenInput(), required=False )
 
     class Meta:
         model = Post
         exclude = ()
-
-    pass
 
 
 class RegisterForm(forms.Form):

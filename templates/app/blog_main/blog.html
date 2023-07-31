@@ -115,12 +115,12 @@
                     <div class="col-lg-9 col-12 col-custom widget-mt">
                         <!-- Blog Wrapper Start -->
                         <div class="row">
-                            {% for blog in blog_list %}
+                            {% for blog_single in blog_list %}
                             <div class="col-md-6 col-custom mb-4">
                                 <div class="single-blog">
                                     <div class="single-blog-thumb">
-                                        <a href="{{ blog.id }}/">
-                                            <img src="{{ blog.image.url }}" alt="Blog Image">
+                                        <a href="{% url 'product-blog-details-page' blog_single.id   %}">
+                                            <img src="{{ blog_single.image.url }}" alt="Blog Image" height="600px" width="450px">
                                         </a>
                                     </div>
                                     <div class="single-blog-content position-relative">
@@ -129,12 +129,12 @@
                                             <span>01</span>
                                         </div>
                                         <div class="post-meta">
-                                            <span class="author">Author: {{ blog.author }}</span>
+                                            <span class="author">Author: {{ blog_single.author }}</span>
                                         </div>
                                         <h2 class="post-title">
-                                            <a href="{{ blog.id }}/">{{ blog.title }}</a>
+                                            <a href="{{ blog_single.id }}/">{{ blog_single.title }}</a>
                                         </h2>
-                                        <p class="desc-content">{{ blog.description }}</p>
+                                        <p class="desc-content">{{ blog_single.description }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -186,17 +186,7 @@
                                 <button data-role="grid_3" type="button" class="btn-grid-3" data-bs-toggle="tooltip" title="3"><i class="fa fa-th"></i></button>
                             </div>
 
-                            <div class="shop-select">
-                                <form class="d-flex flex-column w-100" action="" method="get">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-warning">Sort by:</button>
-                                        <select class="form-control nice-select w-100" name="sort_by">
-                                            <option selected value="title">Title</option>
-                                           
-                                        </select>
-                                    </div>
-                                </form>
-                            </div>
+                          
                         </div>
                         <aside class="sidebar_widget mt-no-text">
                             <div class="widget_inner">
@@ -298,6 +288,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                            <br>    <br>
                                         {% endfor %}
                                     </div>
                                 </div>

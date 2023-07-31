@@ -118,22 +118,28 @@
                             <form action="{% url 'edit-product' form.instance.id %}" method="post" enctype="multipart/form-data" >
                                 {% csrf_token %}
                                 <div class="single-input-item mb-3">
-                                    <input type="file" placeholder="Image" name="image">
+                            <input type="file" placeholder="Image" name="image">
+                            {% if form.instance.image %}
+                                <img src="{{ form.instance.image.url }}" width="100" height="100">
+                            {% endif %}
+                            </div>
+{#                                <div class="single-input-item mb-3">#}
+{#                                <input type="text" placeholder="Title" name="title" value="{{ form.instance.title }}">#}
+{#                                </div>#}
+                                <div class="single-input-item mb-3">
+                                    <input type="text" placeholder="Title" name="title" value="{{ form.instance.title }}">
                                 </div>
                                 <div class="single-input-item mb-3">
-                                    <input type="text" placeholder="Title" name="title">
+                                    <input type="number" placeholder="Price" name="price" value="{{ form.instance.price }}">
                                 </div>
                                 <div class="single-input-item mb-3">
-                                    <input type="number" placeholder="Price" name="price">
+                                    <input type="number" placeholder="Rank" name="rank" value="{{ form.instance.rank }}">
                                 </div>
                                 <div class="single-input-item mb-3">
-                                    <input type="number" placeholder="Rank" name="rank">
+                                    <input type="text" placeholder="Description" name="description" value="{{ form.instance.description }}">
                                 </div>
                                 <div class="single-input-item mb-3">
-                                    <input type="text" placeholder="Description" name="description">
-                                </div>
-                                <div class="single-input-item mb-3">
-                                    <select class="form-select" aria-label="Default select example" name="category">
+                                    <select class="form-select" aria-label="Default select example" name="category" value="{{ form.instance.category }}">
                                         {% for category in categories %}
                                             <option value="{{ category.id }}">{{ category.title }}</option>
                                         {% endfor %}
