@@ -10,7 +10,9 @@
     <div class="home-wrapper home-1">
         <!-- Header Area Start Here -->
 
-        {% include 'app/main/header.html' %}
+    {% include 'app/main/header.html' %}
+    {% include 'app/main/sticky.html' %}
+
 
         <!-- Header Area End Here -->
         <!-- Begin Slider Area One -->
@@ -35,8 +37,8 @@
         ]'>
                 <div class="slide-item slide-1 bg-position slide-bg-1 animation-style-01">
                     <div class="slider-content">
-                        <h4 class="slider-small-title" style="color: darkorange">Cold processed organic fruit</h4>
-                        <h2 class="slider-large-title">Fresh Avocado</h2>
+                        <h4 class="slider-small-title" style="color: darkorange">All kinds of household appliances</h4>
+                        <h2 class="slider-large-title">For your family</h2>
                         <div class="slider-btn">
                             <a class="obrien-button black-btn" href="{% url 'shop_main' %}">Shop Now</a>
                         </div>
@@ -44,8 +46,8 @@
                 </div>
                 <div class="slide-item slide-2 bg-position slide-bg-1 animation-style-01">
                     <div class="slider-content">
-                        <h4 class="slider-small-title" style="color: orange"> Healthy life with</h4>
-                        <h2 class="slider-large-title" style="color: #333       ">Natural Organic</h2>
+                        <h4 class="slider-small-title" style="color: orange">Shop at discounted prices</h4>
+                        <h2 class="slider-large-title" style="color: #111111       ">Economical techniques</h2>
                         <div class="slider-btn">
                             <a class="obrien-button black-btn" href="{% url  'shop_main' %}">Shop Now</a>
                         </div>
@@ -119,7 +121,7 @@
                                 <div class="single-item">
                                     <div class="single-product position-relative">
                                         <div class="product-image">
-                                          
+
                                             <a class="d-block" href="{% url 'product-details' product.id %}">
 
                                                 <img src="{{ product.image.url }}" height="300px" width="250px" alt="{{ product.title }}  "

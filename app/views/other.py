@@ -1,20 +1,37 @@
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from app.form import ProductModelForm, FeedbackModelForm, PostModelForm
-from app.models import Product, Blog, Post, Category, User
+from app.models import Product, Blog, Post, Category, User, Cart
 
 
 def index_view(request):
+    if request.user.is_authenticated:
+        cart = Cart.objects.filter(user=request.user).first()
+        if cart:
+            cart_items = cart.cartitem_set.all()
+            cart_total = sum(item.total for item in cart_items)
+        else:
+            cart_items = []
+            cart_total = 0
 
-    products = Product.objects.order_by('-price')[:3]
-    blogs = Blog.objects.all()
-    return render(request=request,
-                  template_name='app/main/index.html',
-                  context={"products": products,
-                           'blogs': blogs})
+        products = Product.objects.order_by('-price')[:3]
+        blogs = Blog.objects.all()
+        return render(request=request,
+                      template_name='app/main/index.html',
+                      context={"products": products,
+                               'blogs': blogs,
+                               "cart_items": cart_items, "cart_total": cart_total})
+    else:
+        products = Product.objects.order_by('-price')[:3]
+        blogs = Blog.objects.all()
+        return render(request=request,
+                      template_name='app/main/index.html',
+                      context={"products": products,
+                               'blogs': blogs,})
 
-                            
+
 def shop_view(request):
     products = Product.objects.all()
     paginator = Paginator(object_list=products,
@@ -28,11 +45,11 @@ def shop_view(request):
 
     if request.GET.get("sort_by") == 'price':
         product_list = Product.objects.order_by('-price')[:5]
-        
+
     if query:
         product_list = Product.objects.filter(Q(title__icontains=query) |
                                               Q(category__title__icontains=query))
-        
+
     return render(request=request,
                   template_name='app/shop_main/shop.html',
                   context={"product_list": product_list,
@@ -70,52 +87,116 @@ def product_blog_details_page(request, blog_id):
 
 
 def product_blog(request):
-    blog_ = Blog.objects.all()
-    products_right = Product.objects.all()[:3]
-    paginator = Paginator(object_list=blog_,
-                          per_page=4)
-    page_number = request.GET.get('page')
-    blog_list = paginator.get_page(number=page_number)
-    query = request.GET.get('query', '')
-    if request.GET.get('sort_by') == 'title':
-        blog_list = Product.objects.order_by('title')
+    if request.user.is_authenticated:
+        cart = Cart.objects.filter(user=request.user).first()
+        if cart:
+            cart_items = cart.cartitem_set.all()
+            cart_total = sum(item.total for item in cart_items)
+        else:
+            cart_items = []
+            cart_total = 0
+        blog_ = Blog.objects.all()
+        products_right = Product.objects.all()[:3]
+        paginator = Paginator(object_list=blog_,
+                              per_page=4)
+        page_number = request.GET.get('page')
+        blog_list = paginator.get_page(number=page_number)
+        query = request.GET.get('query', '')
+        if request.GET.get('sort_by') == 'title':
+            blog_list = Product.objects.order_by('title')
 
-    if query:
-        blog_list = Blog.objects.filter(title__icontains=query)
+        if query:
+            blog_list = Blog.objects.filter(title__icontains=query)
 
-    return render(request=request,
-                  template_name='app/blog_main/blog.html',
-                  context={
-                           "blog_list":blog_list,
-                            'products_right' : products_right})
+        return render(request=request,
+                      template_name='app/blog_main/blog.html',
+                      context={
+                               "blog_list":blog_list,
+                                'products_right' : products_right,
+                      "cart_items": cart_items, "cart_total": cart_total})
+    else:
+        blog_ = Blog.objects.all()
+        products_right = Product.objects.all()[:3]
+        paginator = Paginator(object_list=blog_,
+                              per_page=4)
+        page_number = request.GET.get('page')
+        blog_list = paginator.get_page(number=page_number)
+        query = request.GET.get('query', '')
+        if request.GET.get('sort_by') == 'title':
+            blog_list = Product.objects.order_by('title')
+
+        if query:
+            blog_list = Blog.objects.filter(title__icontains=query)
+
+        return render(request=request,
+                      template_name='app/blog_main/blog.html',
+                      context={
+                          "blog_list": blog_list,
+                          'products_right': products_right,})
 
 
+
+@login_required(login_url='login')
 def product_details_view(request, product_id):
+    cart = Cart.objects.filter(user=request.user).first()
+    if cart:
+        cart_items = cart.cartitem_set.all()
+        cart_total = sum(item.total for item in cart_items)
+    else:
+        cart_items = []
+        cart_total = 0
     product = Product.objects.filter(id=product_id).first()
     products = Product.objects.all()
 
     return render(request=request,
                   template_name='app/shop_main/product_details.html',
                   context={'product':product,
-                           "products":products})
+                           "products":products,
+                           "cart_items": cart_items, "cart_total": cart_total})
 
 
 def add_product_view(request):
-    categories = Category.objects.all()
-    users = User.objects.all()
-    if request.method == "POST":
-        form = ProductModelForm(data=request.POST, files=request.FILES)
-        if form.is_valid():
-            product = form.save(commit=False)
-            product.user = request.user
-            product.save()
-            return redirect('shop_main')
-    form = ProductModelForm()
-    return render(request=request,
-                  template_name='app/add_product.html',
-                  context={"form": form,
-                           "categories": categories,
-                           "users":users})
+    if request.user.is_authenticated:
+        cart = Cart.objects.filter(user=request.user).first()
+        if cart:
+            cart_items = cart.cartitem_set.all()
+            cart_total = sum(item.total for item in cart_items)
+        else:
+            cart_items = []
+            cart_total = 0
+        categories = Category.objects.all()
+        users = User.objects.all()
+        if request.method == "POST":
+            form = ProductModelForm(data=request.POST, files=request.FILES)
+            if form.is_valid():
+                product = form.save(commit=False)
+                product.user = request.user
+                product.save()
+                return redirect('shop_main')
+        form = ProductModelForm()
+        return render(request=request,
+                      template_name='app/add_product.html',
+                      context={"form": form,
+                               "categories": categories,
+                               "users":users,
+                               "cart_items": cart_items, "cart_total": cart_total})
+    else:
+        categories = Category.objects.all()
+        users = User.objects.all()
+        if request.method == "POST":
+            form = ProductModelForm(data=request.POST, files=request.FILES)
+            if form.is_valid():
+                product = form.save(commit=False)
+                product.user = request.user
+                product.save()
+                return redirect('shop_main')
+        form = ProductModelForm()
+        return render(request=request,
+                      template_name='app/add_product.html',
+                      context={"form": form,
+                               "categories": categories,
+                               "users":users,})
+
 
 
 def edit_product(request, product_id):
@@ -130,7 +211,7 @@ def edit_product(request, product_id):
             product = form.save(commit=False)
             if request.user.is_authenticated:
                 product.user = request.user
-            product.save(update_fields=['title', 'description', 'price', 'rank', 'image', 'category']) 
+            product.save(update_fields=['title', 'description', 'price', 'rank', 'image', 'category'])
 
             return redirect('product-details', product.id)
 
@@ -160,28 +241,68 @@ def product_compare_page(request):
                   template_name='app/shop_main/compare_page.html')
 
 
-def product_checkout_page(request):
-    return render(request=request,
-                  template_name='app/shop_main/checkout_page.html')
-
-
 def product_frequently_questions(request):
-    return render(request=request,
-                  template_name='app/pages_main/frequently-questions.html')
+    if request.user.is_authenticated:
+        cart = Cart.objects.filter(user=request.user).first()
+        if cart:
+            cart_items = cart.cartitem_set.all()
+            cart_total = sum(item.total for item in cart_items)
+        else:
+            cart_items = []
+            cart_total = 0
+        return render(request=request,
+                      template_name='app/pages_main/frequently-questions.html',
+                      context={"cart_items": cart_items, "cart_total": cart_total})
+    else:
+        return render(request=request,
+                      template_name='app/pages_main/frequently-questions.html',)
 
 
 def about_page(request):
-    return render(request=request,
-                  template_name='app/about.html')
+    if request.user.is_authenticated:
+        cart = Cart.objects.filter(user=request.user).first()
+        if cart:
+            cart_items = cart.cartitem_set.all()
+            cart_total = sum(item.total for item in cart_items)
+        else:
+            cart_items = []
+            cart_total = 0
+        return render(request=request,
+                      template_name='app/about.html',
+                      context={"cart_items": cart_items, "cart_total": cart_total})
+    else:
+        return render(request=request,
+                      template_name='app/about.html',)
 
 
 def contact_page(request):
-    if request.method == "POST":
-        form = FeedbackModelForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('index')
-    form = ProductModelForm()
-    return render(request=request,
-                  template_name='app/contact.html',
-                  context={"form": form})
+    if request.user.is_authenticated:
+        cart = Cart.objects.filter(user=request.user).first()
+        if cart:
+            cart_items = cart.cartitem_set.all()
+            cart_total = sum(item.total for item in cart_items)
+        else:
+            cart_items = []
+            cart_total = 0
+        if request.method == "POST":
+            form = FeedbackModelForm(data=request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('index')
+        form = ProductModelForm()
+
+        return render(request=request,
+                      template_name='app/contact.html',
+                      context={"form": form, "cart_items": cart_items, "cart_total": cart_total})
+    else:
+        if request.method == "POST":
+            form = FeedbackModelForm(data=request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('index')
+        form = ProductModelForm()
+
+        return render(request=request,
+                      template_name='app/contact.html',
+                      context={"form": form})
+

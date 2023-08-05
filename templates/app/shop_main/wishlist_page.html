@@ -39,10 +39,10 @@
                             <!-- mobile menu navigation start -->
                             <nav>
                                 <ul class="mobile-menu">
-                                    <li class="menu-item-has-children"><a href="#">My Account</a>
+                                    <li class="menu-item-has-children"><a href="">My Account</a>
                                         <ul class="dropdown">
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="Register-2.html">Register</a></li>
+                                            <li><a href="{% url 'logout' %}">Login</a></li>
+                                            <li><a href="{% url 'register' %}">Register</a></li>
                                         </ul>
                                     </li>
                                     <li class="menu-item-has-children"><a href="#">Currency:USD</a>
